@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const init = require("../utils/initial.role");
+const uri = require("../utils/db.config");
 
-mongoose.connect("mongodb+srv://ws-my-piol:merlin3d@cluster0.v8qsv.mongodb.net/my-piol-db-prod?retryWrites=true&w=majority", {
+mongoose.connect(uri.ONLINE_DEV, {
 //useCreatendex: true, 
    //useFindAndModify: false, 
    useNewUrlParser: true, 
