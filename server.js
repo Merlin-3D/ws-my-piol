@@ -31,6 +31,9 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, PATCH, OPTIONS"
   );
+
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  
   next();
 });
 
@@ -41,7 +44,7 @@ const swaggerOptions = {
     "openapi": "3.0.3",
     "info": {
       "version": "1.0.0",
-      "title": "MY PIOL WS-API",
+      "title": "MY-PIOL WS-API",
       "description": "Project Application API WS",
       "license": {
         "name": "MIT",
@@ -71,13 +74,12 @@ const swaggerOptions = {
     ],
     "servers": [
       {
-        "url": "http://localhost:3000/api/v1", // url
-        "description": "Local server", // name
+        "url": "https://app-ws-mypiol.herokuapp.com/api/v1", // url
+        "description": "Api Server", // name
       },
     ],
     "schemes": [
-        "http",
-        "https"
+        "http"
     ],
     "consumes": [
         "application/json"
