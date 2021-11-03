@@ -29,6 +29,7 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH, OPTIONS");
+  res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
 app.use(bodyParser.json());
@@ -37,7 +38,7 @@ var swaggerOptions = {
     "openapi": "3.0.3",
     "info": {
       "version": "1.0.0",
-      "title": "MY PIOL WS-API",
+      "title": "MY-PIOL WS-API",
       "description": "Project Application API WS",
       "license": {
         "name": "MIT",
@@ -63,12 +64,12 @@ var swaggerOptions = {
       "description": "All API for Categorys"
     }],
     "servers": [{
-      "url": "http://localhost:3000/api/v1",
+      "url": "https://app-ws-mypiol.herokuapp.com/api/v1",
       // url
-      "description": "Local server" // name
+      "description": "Api Server" // name
 
     }],
-    "schemes": ["http", "https"],
+    "schemes": ["http"],
     "consumes": ["application/json"],
     "produces": ["application/json"]
   },
