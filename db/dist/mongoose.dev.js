@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 
 var init = require("../utils/initial.role");
 
-mongoose.connect("mongodb://localhost:27017/ws-mypiol", {
+mongoose.connect("mongodb+srv://ws-my-piol:merlin3d@cluster0.v8qsv.mongodb.net/my-piol-db-prod?retryWrites=true&w=majority", {
   //useCreatendex: true, 
   //useFindAndModify: false, 
   useNewUrlParser: true,
