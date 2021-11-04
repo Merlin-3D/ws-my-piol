@@ -6,7 +6,7 @@ const authJwt = require("../middlewares/authJwt.js")
 const controller = require("../controllers/auth.controller");
 const userController = require("../controllers/user.controller");
 const categoryController = require("../controllers/category.controller");
-
+const propertyController = require("../controllers/property.controller");
 
 /********************************** AUTH ROUTES /**********************************/
 
@@ -223,8 +223,8 @@ router.put("/user/authoritie-user/:id", [authJwt.verifyToken, authJwt.isAdmin], 
  *          type: object
  *          properties:
  *            title:
- *              type: "string"
- *              example: "ytyVgh"
+ *              type: string
+ *              example: "nom categorie"
  *     responses:
  *       201:
  *         description: Created
@@ -278,6 +278,71 @@ router.get('/category/all-category', [authJwt.verifyToken, authJwt.isAdmin], cat
 router.put('/category/update-category/:id', [authJwt.verifyToken, authJwt.isAdmin], categoryController.updateCategory)
 
 
+/********************************** PROPERTY ROUTES /**********************************/
+
+/**
+ * @swagger
+ * /property/add-property:
+ *   post:
+ *     tags: [Property]
+ *     parameters:
+ *      - in: body
+ *        name: property
+ *        description: Create property
+ *        schema:
+ *          type: object
+ *          properties:
+ *            category:
+ *              type: string
+ *              example: "6181d643678551d42a595e07"
+ *              required: true
+ *            type_offer:
+ *              type: string
+ *            district:
+ *              type: string
+ *            city:
+ *              type: string
+ *            bathroom:
+ *              type: integer
+ *            superficy:
+ *              type: integer
+ *            stage:
+ *              type: integer
+ *            garage:
+ *              type: integer
+ *            description:
+ *              type: string
+ *            totalFloor:
+ *              type: integer
+ *            availablity:
+ *              type: boolean
+ *            typeProperty:
+ *              type: string
+ *            cost:
+ *              type: integer
+ *            bail:
+ *              type: integer
+ *            state:
+ *              type: integer
+ *            verification:
+ *              type: boolean
+ *            pictures:
+ *              type: object
+ *              example: ["https://static.onzemondial.com/photo_article/202595/92167/1200-L-liga.jpg","https://static.onzemondial.com/photo_article/202595/92167/1200-L-liga.jpg"]
+ *              required: true
+ *            long:
+ *              type: double
+ *              example: "4.2222222411144122"
+ *            lat:
+ *              type: double
+ *              example: "8.1414256656656565"
+ *     responses:
+ *       201:
+ *         description: Created new property
+ *     security:
+ *      - bearerAuth: []
+ */
+ router.post('/property/add-property', [authJwt.verifyToken, authJwt.isModerator], propertyController.addProperty)
 
 
 module.exports = router;

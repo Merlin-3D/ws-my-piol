@@ -6,7 +6,7 @@ var init = require("../utils/initial.role");
 
 var uri = require("../utils/db.config");
 
-mongoose.connect(uri.ONLINE_DEV, {
+mongoose.connect(uri.LOCALE, {
   //useCreatendex: true, 
   //useFindAndModify: false, 
   useNewUrlParser: true,
