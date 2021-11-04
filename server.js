@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   );
 
   res.setHeader('Access-Control-Allow-Credentials', true);
-  
+
   next();
 });
 
@@ -50,8 +50,8 @@ const swaggerOptions = {
         "name": "MIT",
         "url": "https://opensource.org/licenses/MIT"
       }
-    }, 
-    "components": {        
+    },
+    "components": {
       "securitySchemes": {
         "bearerAuth": {
           "type": "http",
@@ -63,13 +63,17 @@ const swaggerOptions = {
     "host": "localhost:3000",
     "basePath": "/api/v1",
     "tags": [
-        {
-            "name": "User",
-            "description": "All API end point for user"
-        },
-        {
-          "name": "Category",
-          "description": "All API for Categorys"
+      {
+        "name": "User",
+        "description": "All API end point for user"
+      },
+      {
+        "name": "Category",
+        "description": "All API for Categorys"
+      },
+      {
+        "name": "Property",
+        "description": "All API for Property"
       }
     ],
     "servers": [
@@ -79,13 +83,13 @@ const swaggerOptions = {
       },
     ],
     "schemes": [
-        "http"
+      "http"
     ],
     "consumes": [
-        "application/json"
+      "application/json"
     ],
     "produces": [
-        "application/json"
+      "application/json"
     ],
 
   },
@@ -93,14 +97,14 @@ const swaggerOptions = {
 }
 var options = {
   swaggerOptions: {
-    authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
+    authAction: { JWT: { name: "JWT", schema: { type: "apiKey", in: "header", name: "Authorization", description: "" }, value: "Bearer <JWT>" } }
   }
 };
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
 
 app.use(
   '/api-docs',
-  swaggerUi.serve, swaggerUi.setup(swaggerDocs,options)
+  swaggerUi.serve, swaggerUi.setup(swaggerDocs, options)
 );
 // simple route
 app.get("/", (req, res) => {

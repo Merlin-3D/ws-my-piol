@@ -62,6 +62,9 @@ var swaggerOptions = {
     }, {
       "name": "Category",
       "description": "All API for Categorys"
+    }, {
+      "name": "Property",
+      "description": "All API for Property"
     }],
     "servers": [{
       "url": "https://app-ws-mypiol.herokuapp.com/api/v1",
