@@ -6,6 +6,8 @@ var User = db.user;
 
 var getResponse = require("../utils/standart.reponse");
 
+var bcrypt = require("bcryptjs");
+
 exports.allUser = function _callee(req, res) {
   return regeneratorRuntime.async(function _callee$(_context) {
     while (1) {
@@ -61,7 +63,8 @@ exports.updateUser = function _callee3(req, res) {
             sexe: req.body.sexe,
             birthday: req.body.birthday,
             district: req.body.district,
-            city: req.body.city
+            city: req.body.city,
+            profil: req.body.profil
           }).then(function (user) {
             return res.status(200).send(getResponse(200, null, user));
           })["catch"](function (error) {
@@ -76,12 +79,36 @@ exports.updateUser = function _callee3(req, res) {
   });
 };
 
-exports.updateParamasUser = function _callee4(req, res) {
+exports.updatePassword = function _callee4(req, res) {
   return regeneratorRuntime.async(function _callee4$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.next = 2;
+          return regeneratorRuntime.awrap(User.updateOne({
+            _id: req.userId
+          }, {
+            password: bcrypt.hashSync(req.body.password, 8)
+          }).then(function (user) {
+            return res.status(200).send(getResponse(200, "Password has been update", null));
+          })["catch"](function (error) {
+            return res.status(500).send(getResponse(500, error, null));
+          }));
+
+        case 2:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  });
+};
+
+exports.updateParamasUser = function _callee5(req, res) {
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
           return regeneratorRuntime.awrap(User.updateOne({
             _id: req.userId
           }, {
@@ -96,18 +123,18 @@ exports.updateParamasUser = function _callee4(req, res) {
 
         case 2:
         case "end":
-          return _context4.stop();
+          return _context5.stop();
       }
     }
   });
 };
 
-exports.deleteUser = function _callee5(req, res) {
-  return regeneratorRuntime.async(function _callee5$(_context5) {
+exports.deleteUser = function _callee6(req, res) {
+  return regeneratorRuntime.async(function _callee6$(_context6) {
     while (1) {
-      switch (_context5.prev = _context5.next) {
+      switch (_context6.prev = _context6.next) {
         case 0:
-          _context5.next = 2;
+          _context6.next = 2;
           return regeneratorRuntime.awrap(User.deleteOne({
             _id: req.params.id
           }).then(function (user) {
@@ -118,18 +145,18 @@ exports.deleteUser = function _callee5(req, res) {
 
         case 2:
         case "end":
-          return _context5.stop();
+          return _context6.stop();
       }
     }
   });
 };
 
-exports.authoritieUser = function _callee6(req, res) {
-  return regeneratorRuntime.async(function _callee6$(_context6) {
+exports.authoritieUser = function _callee7(req, res) {
+  return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) {
-      switch (_context6.prev = _context6.next) {
+      switch (_context7.prev = _context7.next) {
         case 0:
-          _context6.next = 2;
+          _context7.next = 2;
           return regeneratorRuntime.awrap(User.updateOne({
             _id: req.params.id
           }, {
@@ -146,7 +173,7 @@ exports.authoritieUser = function _callee6(req, res) {
 
         case 2:
         case "end":
-          return _context6.stop();
+          return _context7.stop();
       }
     }
   });

@@ -63,7 +63,7 @@ exports.updateCategory = function _callee3(req, res) {
           }, {
             title: req.body.title
           }).then(function () {
-            return res.status(201).send(getResponse(201, "Category has been edit", null));
+            return res.status(201).send(getResponse(201, "Category has been update", null));
           })["catch"](function (error) {
             return res.status(500).send(getResponse(500, error, null));
           }));

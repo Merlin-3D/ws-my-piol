@@ -23,6 +23,6 @@ exports.addCategory = async (req, res, next) => {
 
 exports.updateCategory = async (req, res) => {
         await Category.updateOne({ _id: req.params.id }, { title: req.body.title })
-            .then(() => res.status(201).send(getResponse(201, "Category has been edit", null)))
+            .then(() => res.status(201).send(getResponse(201, "Category has been update", null)))
             .catch(error => res.status(500).send(getResponse(500, error, null)));
 }

@@ -10,13 +10,14 @@ const property = mongoose.Schema({
     superficy: { type: 'number', require: false,default: 0 },//superficie
     stage: { type: 'number', require: false,default: 0 },//etage
     garage: { type: 'number', require: false,default: 0 },//gararge
-    description: { type: 'string', require: false,default: null },//description
+    description: { type: mongoose.Schema.Types.Mixed, require: false,default: null },//description
     totalFloor: { type: 'number', require: false,default: 0 },//total d'etage
-    availablity: { type: 'boolean', require: false,default: null },//disponibilité
+    availablity: { type: 'boolean', require: false,default: true },//disponibilité
     typeProperty: { type: 'string', require: false,default: null },//type de proprieter
     cost: { type: 'number', require: false,default: 0 },//cout
     bail: { type: 'number', require: false,default: 0 },//caution
     state: { type: 'number', require: false,default: 0 },//etat
+    price: { type: 'number', require: false,default: 0 },//prx
     verification: { type: 'boolean', require: false,default: false },//verification
     views: { type: 'number', require: false,default: 0 },//vues
     pictures: { type: mongoose.Schema.Types.Array, require: true },//photo
