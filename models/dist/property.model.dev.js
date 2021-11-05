@@ -54,7 +54,7 @@ var property = mongoose.Schema({
   },
   //gararge
   description: {
-    type: 'string',
+    type: mongoose.Schema.Types.Mixed,
     require: false,
     "default": null
   },
@@ -68,7 +68,7 @@ var property = mongoose.Schema({
   availablity: {
     type: 'boolean',
     require: false,
-    "default": null
+    "default": true
   },
   //disponibilité
   typeProperty: {
@@ -95,6 +95,12 @@ var property = mongoose.Schema({
     "default": 0
   },
   //etat
+  price: {
+    type: 'number',
+    require: false,
+    "default": 0
+  },
+  //prx
   verification: {
     type: 'boolean',
     require: false,

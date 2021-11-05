@@ -6,6 +6,7 @@ const User = mongoose.model(
         username: { type: 'string', require: true, maxLength: 20 },
         email: { type: 'string', require: true, unique: true },
         password: { type: 'string', require: true, minLength: 8 },
+        profil: { type: 'string', require: false, null: true },
         phone: { type: 'number', require: false, null: true },
         sexe: { type: 'string', require: false, null: true, default: null },
         birthday: { type: 'string', require: false, null: true, default: null },

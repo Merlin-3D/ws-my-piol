@@ -18,6 +18,11 @@ var User = mongoose.model("User", new mongoose.Schema({
     require: true,
     minLength: 8
   },
+  profil: {
+    type: 'string',
+    require: false,
+    "null": true
+  },
   phone: {
     type: 'number',
     require: false,

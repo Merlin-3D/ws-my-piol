@@ -19,7 +19,7 @@ var propertyController = require("../controllers/property.controller");
 
 /**
  * @swagger
- * /auth/signup:
+ * /user/signup:
  *   post:
  *     tags: [User]
  *     parameters:
@@ -43,10 +43,10 @@ var propertyController = require("../controllers/property.controller");
  */
 
 
-router.post("/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
+router.post("/user/signup", [verifySignUp.checkDuplicateUsernameOrEmail, verifySignUp.checkRolesExisted], controller.signup);
 /**
  * @swagger
- * /auth/signin:
+ * /user/signin:
  *   post:
  *     tags: [User]
  *     parameters:
@@ -65,7 +65,7 @@ router.post("/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail, verifyS
  *         description: Created
  */
 
-router.post("/auth/signin", controller.signin);
+router.post("/user/signin", controller.signin);
 /********************************** USER ROUTES /**********************************/
 
 /**
@@ -112,6 +112,8 @@ router.get("/user/one-user", [authJwt.verifyToken, [authJwt.isModerator]], userC
  *              type: string
  *            email:
  *              type: string
+ *            profil:
+ *              type: string
  *            phone:
  *              type: integer
  *            sexe:
@@ -131,6 +133,29 @@ router.get("/user/one-user", [authJwt.verifyToken, [authJwt.isModerator]], userC
  */
 
 router.put("/user/update-user", [authJwt.verifyToken, verifySignUp.checkDuplicateUsernameOrEmail, authJwt.isModerator], userController.updateUser);
+/**
+ * @swagger
+ * /user/update-password:
+ *   put:
+ *     tags: [User]
+ *     parameters:
+ *      - in: body
+ *        name: Update password user
+ *        description: update password user
+ *        schema:
+ *          type: object
+ *          properties:
+ *            password:
+ *              type: string
+ *  
+ *     responses:
+ *       201:
+ *         description: Created
+ *     security:
+ *      - bearerAuth: []
+ */
+
+router.put("/user/update-password", [authJwt.verifyToken, verifySignUp.checkDuplicateUsernameOrEmail, authJwt.isModerator], userController.updatePassword);
 /**
  * @swagger
  * /user/update-params-user:
@@ -323,6 +348,9 @@ router.put('/category/update-category/:id', [authJwt.verifyToken, authJwt.isAdmi
  *              type: integer
  *            state:
  *              type: integer
+ *            price:
+ *              type: integer
+ *              required: true
  *            verification:
  *              type: boolean
  *            pictures:
@@ -343,4 +371,133 @@ router.put('/category/update-category/:id', [authJwt.verifyToken, authJwt.isAdmi
  */
 
 router.post('/property/add-property', [authJwt.verifyToken, authJwt.isModerator], propertyController.addProperty);
+/**
+* @swagger
+* /property/all-property:
+*   get:
+*     tags: [Property]
+*     description: all categorys property
+*     responses:
+*       200:
+*         description: Returns all property
+*     security:
+*      - bearerAuth: []
+*/
+
+router.get('/property/all-property', [authJwt.verifyToken, authJwt.isModerator], propertyController.allPropertys);
+/**
+ * @swagger
+ * /property/from-category/{id}:
+ *   get:
+ *     tags: [Property]
+ *     description: all propertys
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        type: string
+ *        description: category id.
+ *     responses:
+ *       200:
+ *         description: Returns list all propertys
+ *     security:
+ *      - bearerAuth: []
+ */
+
+router.get('/property/from-category/:id', [authJwt.verifyToken, authJwt.isModerator], propertyController.getFromCategory);
+/**
+* @swagger
+* /property/from-user/{id}:
+*   get:
+*     tags: [Property]
+*     description: all propertys for one user
+*     parameters:
+*      - in: path
+*        name: id
+*        required: true
+*        type: string
+*        description: user id.
+*     responses:
+*       200:
+*         description: Returns list all propertys
+*     security:
+*      - bearerAuth: []
+*/
+
+router.get('/property/from-user/:id', [authJwt.verifyToken, authJwt.isModerator], propertyController.getFromUser);
+/**
+ * @swagger
+ * /property/delete-property/{id}:
+ *   delete:
+ *     tags: [Property]
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        type: string
+ *        description: delete one property.
+ *     description: Delete a property by id
+ *     responses:
+ *       200:
+ *         description: return property as been delete
+ *     security:
+ *      - bearerAuth: []
+ */
+
+router["delete"]("/property/delete-property/:id", [authJwt.verifyToken, authJwt.isModerator], propertyController.deleteProperty);
+/**
+ * @swagger
+ * /property/update-property:
+ *   put:
+ *     tags: [Property]
+ *     parameters:
+ *      - in: body
+ *        name: property
+ *        description: Create property
+ *        schema:
+ *          type: object
+ *          properties:
+ *            category:
+ *              type: string
+ *              example: "6181d643678551d42a595e07"
+ *              required: true
+ *            type_offer:
+ *              type: string
+ *            district:
+ *              type: string
+ *            city:
+ *              type: string
+ *            bathroom:
+ *              type: integer
+ *            superficy:
+ *              type: integer
+ *            stage:
+ *              type: integer
+ *            garage:
+ *              type: integer
+ *            description:
+ *              type: string
+ *            totalFloor:
+ *              type: integer
+ *            availablity:
+ *              type: boolean
+ *            typeProperty:
+ *              type: string
+ *            cost:
+ *              type: integer
+ *            bail:
+ *              type: integer
+ *            state:
+ *              type: integer
+ *            price:
+ *              type: integer
+ *              required: true
+ *     responses:
+ *       201:
+ *         description: Update one property
+ *     security:
+ *      - bearerAuth: []
+ */
+
+router.post('/property/update-property', [authJwt.verifyToken, authJwt.isModerator], propertyController.updateOneProperty);
 module.exports = router;
