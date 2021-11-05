@@ -3,8 +3,7 @@ const init = require("../utils/initial.role");
 const uri = require("../utils/db.config");
 
 mongoose.connect(uri.ONLINE_DEV, {
-//useCreatendex: true, 
-   //useFindAndModify: false, 
+
    useNewUrlParser: true, 
    useUnifiedTopology: true 
 })
