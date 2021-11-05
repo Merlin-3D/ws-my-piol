@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const init = require("../utils/initial.role");
 const uri = require("../utils/db.config");
 
-mongoose.connect(uri.LOCALE, {
-//useCreatendex: true, 
-   //useFindAndModify: false, 
+mongoose.connect(uri.ONLINE_DEV, {
+
    useNewUrlParser: true, 
    useUnifiedTopology: true 
 })
