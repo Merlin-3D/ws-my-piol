@@ -1,11 +1,13 @@
 const db = require("../models");
 const Property = db.property;
 const getResponse = require("../utils/standart.reponse")
-
+const upload = require("../utils/upload.file")
 
 exports.addProperty = async (req, res, next) => {
-    if (req.body.pictures.length && req.body.pictures.length > 0) {
-        await Property.create({
+
+    upload.uploadMultiple(req, res).then((data) => {
+
+        Property.create({
             user: req.userId,
             category: req.body.category,
             type_offer: req.body.type_offer,//type de l'offre
@@ -24,7 +26,7 @@ exports.addProperty = async (req, res, next) => {
             state: req.body.state,//etat
             price: req.body.price,//prix
             verification: req.body.verification,//verification
-            pictures: req.body.pictures,//photo
+            pictures: data,//photo
             long: req.body.long,//longitude
             lat: req.body.lat,
 
@@ -33,9 +35,8 @@ exports.addProperty = async (req, res, next) => {
         ).catch(err => {
             res.status(500).send(getResponse(500, err, null))
         })
-    } else {
-        res.status(500).send(getResponse(500, "you must define images for this property", null))
-    }
+    })
+
 
 }
 exports.allPropertys = async (req, res, next) => {

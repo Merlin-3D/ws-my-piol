@@ -2,6 +2,7 @@ const db = require("../models");
 const User = db.user;
 const getResponse = require("../utils/standart.reponse")
 var bcrypt = require("bcryptjs");
+const upload = require("../utils/upload.file")
 
 exports.allUser = async (req, res) => {
   await User.find().then((users) => {
@@ -26,11 +27,19 @@ exports.updateUser = async (req, res) => {
     birthday: req.body.birthday,
     district: req.body.district,
     city: req.body.city,
-    profil: req.body.profil,
   })
     .then((user) => res.status(200).send(getResponse(200, null, user)))
     .catch(error => res.status(500).send(getResponse(500, error, null)));
 };
+
+exports.updateProfil =  (req, res) => {
+  upload.uplaodSingle(req, res).then((uri) => {
+     User.updateOne({ _id: req.userId }, {
+      profil: uri,
+    }).then(() => res.status(200).send(getResponse(200, "Profil Update", null)))
+      .catch(error => res.status(500).send(getResponse(500, error, null)));
+  })
+}
 
 exports.updatePassword = async (req, res) => {
   await User.updateOne({ _id: req.userId }, {
