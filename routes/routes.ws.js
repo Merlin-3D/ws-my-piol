@@ -7,6 +7,7 @@ const controller = require("../controllers/auth.controller");
 const userController = require("../controllers/user.controller");
 const categoryController = require("../controllers/category.controller");
 const propertyController = require("../controllers/property.controller");
+const upload = require("../utils/upload.file")
 
 /********************************** AUTH ROUTES /**********************************/
 
@@ -111,8 +112,6 @@ router.get("/user/one-user", [authJwt.verifyToken, [authJwt.isModerator]], userC
  *              type: string
  *            email:
  *              type: string
- *            profil:
- *              type: string
  *            phone:
  *              type: integer
  *            sexe:
@@ -131,6 +130,30 @@ router.get("/user/one-user", [authJwt.verifyToken, [authJwt.isModerator]], userC
  *      - bearerAuth: []
  */
 router.put("/user/update-user", [authJwt.verifyToken, verifySignUp.checkDuplicateUsernameOrEmail, authJwt.isModerator], userController.updateUser)
+
+/**
+ * @swagger
+ * /user/update-profil:
+ *   put:
+ *     tags: [User]
+ *     parameters:
+ *      - in: body
+ *        name: Update user profil
+ *        description: update profil user
+ *        schema:
+ *          type: object
+ *          properties:
+ *            file:
+ *              type: string
+ *  
+ *     responses:
+ *       201:
+ *         description: profil user update
+ *     security:
+ *      - bearerAuth: []
+ */
+ router.put("/user/update-profil", [authJwt.verifyToken, authJwt.isModerator, upload.upload.single('file')], userController.updateProfil)
+
 
 /**
  * @swagger
@@ -355,9 +378,9 @@ router.put('/category/update-category/:id', [authJwt.verifyToken, authJwt.isAdmi
  *              required: true
  *            verification:
  *              type: boolean
- *            pictures:
+ *            files:
  *              type: object
- *              example: ["https://static.onzemondial.com/photo_article/202595/92167/1200-L-liga.jpg","https://static.onzemondial.com/photo_article/202595/92167/1200-L-liga.jpg"]
+ *              example: ["uri file"]
  *              required: true
  *            long:
  *              type: double
@@ -371,7 +394,7 @@ router.put('/category/update-category/:id', [authJwt.verifyToken, authJwt.isAdmi
  *     security:
  *      - bearerAuth: []
  */
- router.post('/property/add-property', [authJwt.verifyToken, authJwt.isModerator], propertyController.addProperty)
+ router.post('/property/add-property', [authJwt.verifyToken, authJwt.isModerator, upload.upload.any()], propertyController.addProperty)
 
  /**
  * @swagger
