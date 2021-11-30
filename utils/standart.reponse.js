@@ -2,7 +2,8 @@ const getStandardReponse=(status, message, data) => {
     return {
         status: status,
         message: message,
-        content: data
+        content: data,
+        error: message?message:null
     }
 }
 
